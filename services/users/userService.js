@@ -15,7 +15,7 @@ class UserService {
     }
     //prevent duplicate records
     const existingUser = await UserModel.findByEmail(userData.email);
-    if (existing)
+    if (existingUser)
       throw new AppError("User with this email exists already", 409);
 
     //Hash Password

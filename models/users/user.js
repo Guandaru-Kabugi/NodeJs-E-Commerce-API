@@ -1,4 +1,4 @@
-import pool from "../db/connect.js";
+import pool from "../../db/connect.js";
 import bcrypt from "bcrypt";
 
 class UserModel {
@@ -28,7 +28,7 @@ class UserModel {
   }
 
   static async findByEmail(email) {
-    const result = await pool.query("SELECT * FROM users WHERE email=$1", [
+    const result = await pool.query("SELECT id, first_name, last_name, role, email, country, profile_picture FROM users WHERE email=$1", [
       email,
     ]);
 
