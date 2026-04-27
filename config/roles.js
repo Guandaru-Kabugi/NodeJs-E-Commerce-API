@@ -1,8 +1,8 @@
-{
-  "roles": [
+const roles = {
+  roles: [
     {
-      "name": "admin",
-      "permissions": [
+      name: "admin",
+      permissions: [
         "create_product",
         "read_product",
         "update_product",
@@ -12,19 +12,21 @@
       ]
     },
     {
-      "name": "manager",
-      "permissions": [
+      name: "manager",
+      permissions: [
         "get_userprofile",
         "read_product"
       ]
     },
     {
-      "name": "customer",
-      "permissions": [
+      name: "customer",
+      permissions: [
         "create_userprofile",
         "read_userprofile",
         "update_userprofile"
       ]
     }
   ]
-}
+};
+
+export default roles;

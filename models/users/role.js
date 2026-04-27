@@ -1,4 +1,4 @@
-import roles from '../../config/roles.json'
+import roles from '../../config/roles.js';
 
 class Role {
   constructor() {

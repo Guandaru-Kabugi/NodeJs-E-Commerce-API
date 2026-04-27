@@ -1,6 +1,7 @@
 import express from "express";
 import {createProduct, getProducts, getProductById, updateProduct, deleteProduct} from "../../controllers/products/productController.js";
-import authenticateUser from "../../middlewares/auth.js";
+import authenticateUser from "../../middlewares/auth.js"
+import { authorize } from "../../middlewares/authorize.js";
 
 const productRouter = express.Router();
 
@@ -46,7 +47,7 @@ const productRouter = express.Router();
  *       409:
  *         description: product serial already in use
  */
-productRouter.post('/createProduct', authenticateUser, createProduct);
+productRouter.post('/createProduct', authenticateUser, authorize('create_product'), createProduct);
 
 /**
  * @swagger
@@ -109,7 +110,7 @@ productRouter.get('/:id',authenticateUser, getProductById);
  *       404:
  *         description: product with this id not found
  */
-productRouter.patch('/updateProduct/:id',authenticateUser, updateProduct);
+productRouter.patch('/updateProduct/:id',authenticateUser, authorize('update_product'), updateProduct);
 
 
 /**
@@ -124,6 +125,6 @@ productRouter.patch('/updateProduct/:id',authenticateUser, updateProduct);
  *       404:
  *          description: Product with this id not found
  */
-productRouter.delete('/:id',authenticateUser, deleteProduct);
+productRouter.delete('/:id',authenticateUser, authorize('delete_product'), deleteProduct);
 
 export default productRouter;

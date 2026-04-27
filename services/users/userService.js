@@ -45,8 +45,8 @@ class UserService {
     if (!isMatch) throw new AppError("Invalid email or password", 401);
 
     // 3. Generate tokens
-    const accessToken = generateAccessToken(user.id);
-    const refreshToken = generateRefreshToken(user.id);
+    const accessToken = generateAccessToken(user.id, user.role);
+    const refreshToken = generateRefreshToken(user.id, user.role);
 
     // 4. Persist refresh token
     await UserModel.saveRefreshToken(user.id, refreshToken);
