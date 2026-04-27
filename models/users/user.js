@@ -3,8 +3,15 @@ import bcrypt from "bcrypt";
 
 class UserModel {
   static async createUser(userData) {
-    const { first_name, last_name, role, email, password, country, profilePicture } =
-      userData;
+    const {
+      first_name,
+      last_name,
+      role,
+      email,
+      password,
+      country,
+      profilePicture,
+    } = userData;
 
     const query = `
       INSERT INTO users (first_name, last_name, role, email, password, country, profile_picture)
@@ -28,9 +35,18 @@ class UserModel {
   }
 
   static async findByEmail(email) {
-    const result = await pool.query("SELECT id, first_name, last_name, role, email, country, profile_picture FROM users WHERE email=$1", [
-      email,
-    ]);
+    const result = await pool.query(
+      "SELECT id, first_name, last_name, role, email, country, profile_picture FROM users WHERE email=$1",
+      [email],
+    );
+
+    return result.rows[0];
+  }
+  static async findByEmailForLogin(email){
+    const result = await pool.query(
+      "SELECT * FROM users WHERE email=$1",
+      [email],
+    );
 
     return result.rows[0];
   }
@@ -60,6 +76,8 @@ class UserModel {
   }
 
   static async isValidPassword(password, hashedPassword) {
+    console.log("PASSWORD:", password);
+    console.log("HASH:", hashedPassword);
     return bcrypt.compare(password, hashedPassword);
   }
 }

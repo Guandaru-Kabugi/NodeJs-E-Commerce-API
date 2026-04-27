@@ -3,8 +3,7 @@ import dotenv from "dotenv";
 import userRouter from "./routes/users/userRoutes.js";
 import productRouter from "./routes/products/productRouter.js";
 import { mapDbError } from "./utils/dbError.js";
-//import blogRouter from "./routes/blogRoutes.js";
-//import authenticateUser from "./middlewares/auth.js";
+import authenticateUser from "./middlewares/auth.js";
 import swaggerUI from "swagger-ui-express";
 import swaggerSpec from "./utils/swagger.js";
 
@@ -23,7 +22,7 @@ app.use(express.urlencoded({ extended: true })); // parse form data
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 // ─── Routes ──────────────────────────────────────────────────
 app.use("/api/v1/users", userRouter);
-app.use("/api/v1/products", productRouter);
+app.use("/api/v1/products", authenticateUser, productRouter);
 
 // ─── 404 Handler ─────────────────────────────────────────────
 app.use((req, res, next) => {

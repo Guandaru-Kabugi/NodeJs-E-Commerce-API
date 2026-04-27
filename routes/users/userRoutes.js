@@ -1,5 +1,6 @@
 import express from 'express';
 import {createUser, findByEmail, loginUser, refreshToken, logoutUser} from '../../controllers/users/userController.js';
+import authenticateUser from '../../middlewares/auth.js';
 
 const userRouter = express.Router();
 
@@ -147,7 +148,7 @@ userRouter.post('/refresh', refreshToken);
  *       401:
  *         description: Unauthorized
  */
-userRouter.post('/logout', logoutUser);
+userRouter.post('/logout', authenticateUser, logoutUser);
 /**
  * @swagger
  * /api/v1/users/{email}:
@@ -172,6 +173,6 @@ userRouter.post('/logout', logoutUser);
  *       404:
  *         description: User not found
  */
-userRouter.get('/:email', findByEmail);
+userRouter.get('/:email', authenticateUser, findByEmail);
 
 export default userRouter;

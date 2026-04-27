@@ -1,5 +1,6 @@
 import express from "express";
 import {createProduct, getProducts, getProductById, updateProduct, deleteProduct} from "../../controllers/products/productController.js";
+import authenticateUser from "../../middlewares/auth.js";
 
 const productRouter = express.Router();
 
@@ -45,7 +46,7 @@ const productRouter = express.Router();
  *       409:
  *         description: product serial already in use
  */
-productRouter.post('/createProduct', createProduct);
+productRouter.post('/createProduct', authenticateUser, createProduct);
 
 /**
  * @swagger
@@ -57,7 +58,7 @@ productRouter.post('/createProduct', createProduct);
  *       200:
  *         description: Fetched all products successfully
  */
-productRouter.get('/getAllProducts', getProducts);
+productRouter.get('/getAllProducts', authenticateUser, getProducts);
 
 /**
  * @swagger
@@ -69,7 +70,7 @@ productRouter.get('/getAllProducts', getProducts);
  *       200:
  *         description: Fetched one product successfully
  */
-productRouter.get('/:id', getProductById);
+productRouter.get('/:id',authenticateUser, getProductById);
 
 
 /**
@@ -108,7 +109,7 @@ productRouter.get('/:id', getProductById);
  *       404:
  *         description: product with this id not found
  */
-productRouter.patch('/updateProduct/:id', updateProduct);
+productRouter.patch('/updateProduct/:id',authenticateUser, updateProduct);
 
 
 /**
@@ -123,6 +124,6 @@ productRouter.patch('/updateProduct/:id', updateProduct);
  *       404:
  *          description: Product with this id not found
  */
-productRouter.delete('/:id', deleteProduct);
+productRouter.delete('/:id',authenticateUser, deleteProduct);
 
 export default productRouter;

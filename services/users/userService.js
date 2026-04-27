@@ -37,7 +37,7 @@ class UserService {
   }
   static async loginUser(email, password) {
     // 1. Find user
-    const user = await UserModel.findByEmail(email);
+    const user = await UserModel.findByEmailForLogin(email);
     if (!user) throw new AppError("Invalid email or password", 401);
 
     // 2. Verify password
